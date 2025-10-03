@@ -5,6 +5,9 @@ services:
         build:
             # Build in the current directory
             context: .
+            args:
+                # set build argument
+                - DEV=true
         ports:
             # Port mappings - host:container
             - "8000:8000"
