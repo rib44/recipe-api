@@ -1,0 +1,26 @@
+# Git
+.git
+.gitignore
+
+# Docker
+.docker
+
+# Python
+## Need to remove the pycache as it could be taken from local system, 
+## rather than the one being created in the docker 
+app/__pycache__/
+app/*/__pycache__/
+app/*/*/__pycache__/
+app/*/*/*/__pycache__/
+.env/
+.venv/
+venv/
+
+# UV package manager
+.python-version
+.pyproject.toml
+uv.lock
+
+# Project specific
+LICENSE
+README.md

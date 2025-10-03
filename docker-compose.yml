@@ -1,0 +1,16 @@
+# Define the services/containers
+services:
+    # Name of service
+    app:
+        build:
+            # Build in the current directory
+            context: .
+        ports:
+            # Port mappings - host:container
+            - "8000:8000"
+        volumes:
+            # map the current directory to /app in the container
+            # local file would be reflected in the container
+            - ./app:/app
+        command: >
+            sh -c "python manage.py runserver 0.0.0.0:8000"
