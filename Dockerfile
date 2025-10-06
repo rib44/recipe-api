@@ -25,14 +25,24 @@ ARG DEV=false
 RUN python -m venv /py && \
     # upgrade pip
     /py/bin/pip install --upgrade pip && \
+
+    # Build dependencies for psycopg2 - needed for postgres DB connectivity with Django
+    apk add --update --no-cache postgresql-client && \
+    apk add --update --no-cache --virtual .tmp-build-deps \
+        build-base postgresql-dev musl-dev && \
+
     # install dependencies from requirements.txt
     /py/bin/pip install -r /tmp/requirements.txt && \
+
     # if dev environment then install the requirements.dev.txt
     if [ "$DEV" = "true" ]; \
         then /py/bin/pip install -r /tmp/requirements.dev.txt ; \
     fi && \
+
     # cleanup
     rm -rf /tmp && \
+    apk del .tmp-build-deps && \
+    
     # adds a new user to run the application, else it would run as root
     adduser \ 
         --disabled-password \
