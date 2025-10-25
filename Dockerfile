@@ -1,8 +1,8 @@
 # Selecting a base image
-FROM python:3.9-alpine3.13      
+FROM python:3.9-alpine3.13
 
 # Metadata indication the author
-LABEL maintainer="aryankr730@gmail.com"     
+LABEL maintainer="aryankr730@gmail.com"
 
 # Python output are sent straigt to terminal
 ENV PYTHONUNBUFFERED=1
@@ -42,9 +42,9 @@ RUN python -m venv /py && \
     # cleanup
     rm -rf /tmp && \
     apk del .tmp-build-deps && \
-    
+
     # adds a new user to run the application, else it would run as root
-    adduser \ 
+    adduser \
         --disabled-password \
         --no-create-home \
         django-user
