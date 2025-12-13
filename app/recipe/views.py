@@ -53,4 +53,3 @@ class TagViewSet(mixins.DestroyModelMixin,
 
         # here minus (-) name refers to the reverse of name
         return self.queryset.filter(user=self.request.user).order_by('-name')
-
