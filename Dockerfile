@@ -27,9 +27,10 @@ RUN python -m venv /py && \
     /py/bin/pip install --upgrade pip && \
 
     # Build dependencies for psycopg2 - needed for postgres DB connectivity with Django
-    apk add --update --no-cache postgresql-client && \
+    # jpeg-dev is needed for pillow
+    apk add --update --no-cache postgresql-client jpeg-dev && \
     apk add --update --no-cache --virtual .tmp-build-deps \
-        build-base postgresql-dev musl-dev && \
+        build-base postgresql-dev musl-dev zlib zlib-dev && \
 
     # install dependencies from requirements.txt
     /py/bin/pip install -r /tmp/requirements.txt && \
