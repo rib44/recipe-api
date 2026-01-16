@@ -27,9 +27,10 @@ RUN python -m venv /py && \
     /py/bin/pip install --upgrade pip && \
 
     # Build dependencies for psycopg2 - needed for postgres DB connectivity with Django
-    apk add --update --no-cache postgresql-client && \
+    # jpeg-dev is needed for pillow
+    apk add --update --no-cache postgresql-client jpeg-dev && \
     apk add --update --no-cache --virtual .tmp-build-deps \
-        build-base postgresql-dev musl-dev && \
+        build-base postgresql-dev musl-dev zlib zlib-dev && \
 
     # install dependencies from requirements.txt
     /py/bin/pip install -r /tmp/requirements.txt && \
@@ -47,7 +48,17 @@ RUN python -m venv /py && \
     adduser \
         --disabled-password \
         --no-create-home \
-        django-user
+        django-user && \
+
+    # create media and static directory
+    mkdir -p /vol/web/media && \
+    mkdir -p /vol/web/static && \
+
+    # change ownership of the volume to django-user
+    chown -R django-user:django-user /vol && \
+
+    # change permissions of the volume
+    chmod -R 755 /vol
 
 # add the virtual env to the PATH
 ENV PATH="/py/bin:$PATH"
