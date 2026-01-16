@@ -1,4 +1,4 @@
-# REST API with Python & Django
+# Recipe REST API with Python & Django
 
 This project is a fully functional REST API built with Python, Django, and Django REST Framework. It includes features for user authentication, recipe management, and image uploading, all containerized using Docker.
 
